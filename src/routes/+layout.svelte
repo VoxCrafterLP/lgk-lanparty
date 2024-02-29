@@ -5,6 +5,7 @@
     import {onMount} from "svelte";
 
     let ParticlesComponent: any;
+    let showParticles: boolean = false;
 
     onMount(async () => {
         const module = await import('@tsparticles/svelte');
@@ -36,8 +37,11 @@
 
 <svelte:component
         this="{ParticlesComponent}"
-        id="tsparticles"
-        class="fixed top-0 left-0 w-full h-full -z-10"
-        options="{particlesConfig}"/>
+        id="bg-particles"
+        class="fixed top-0 left-0 w-full h-full -z-10 duration-[2000ms] transition-all"
+        options="{particlesConfig}"
+        style={'opacity: ' + (showParticles ? 100 : 0) + ';'}
+        on:particlesLoaded="{() => showParticles = true}"
+/>
 <img src="/lgk.png" alt="LGK Logo" class="absolute top-4 left-4 w-24 invisible xl:visible"/>
 <slot/>
